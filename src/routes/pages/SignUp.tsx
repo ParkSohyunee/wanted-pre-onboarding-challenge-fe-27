@@ -12,9 +12,19 @@ export default function SignUp() {
     password: "",
   });
 
+  const [isBlur, setIsBlur] = useState({
+    email: false,
+    password: false,
+  });
+
   const handleChangeValues = (e: ChangeEvent<HTMLInputElement>) => {
     const error = validateForm(values);
     setErrors(error);
+
+    setIsBlur((prev) => ({
+      ...prev,
+      [e.target.id]: true,
+    }));
     setValues((prev) => ({
       ...prev,
       [e.target.id]: e.target.value,
@@ -41,12 +51,12 @@ export default function SignUp() {
         <div>
           <label htmlFor="email">이메일</label>
           <input id="email" onBlur={handleChangeValues} />
-          <p>{!!errors.email && errors.email}</p>
+          <p>{isBlur.email && !!errors.email && errors.email}</p>
         </div>
         <div>
           <label htmlFor="password">비밀번호</label>
           <input id="password" type="password" onBlur={handleChangeValues} />
-          <p>{!!errors.password && errors.password}</p>
+          <p>{isBlur.password && !!errors.password && errors.password}</p>
         </div>
         <button type="submit">회원가입</button>
       </form>

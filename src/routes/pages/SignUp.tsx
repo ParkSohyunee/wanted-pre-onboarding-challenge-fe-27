@@ -1,7 +1,12 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { validateForm } from "../../libs/utils/validate";
+import createUser from "../../api/auth";
 
 export default function SignUp() {
+  const navigate = useNavigate();
+
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -31,11 +36,20 @@ export default function SignUp() {
     }));
   };
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     if (!values.email || !values.password) {
       return;
+    }
+
+    try {
+      const result = await createUser(values);
+      localStorage.setItem("accessToken", result.token);
+      alert(result.message);
+      navigate("/auth/login");
+    } catch (error) {
+      console.log(error);
     }
   };
 

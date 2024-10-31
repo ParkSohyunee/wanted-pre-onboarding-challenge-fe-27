@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { validateForm } from "../../libs/utils/validate";
-import createUser from "../../api/auth";
+import { createUser } from "../../api/auth";
 
 export default function SignUp() {
   const navigate = useNavigate();

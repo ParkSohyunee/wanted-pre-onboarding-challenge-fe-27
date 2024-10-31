@@ -19,4 +19,13 @@ const createUser = async ({ email, password }: FormType) => {
   return result.data;
 };
 
-export default createUser;
+const loginUser = async ({ email, password }: FormType) => {
+  const result = await axiosInstance.post<Response>("/users/login", {
+    email,
+    password,
+  });
+
+  return result.data;
+};
+
+export { createUser, loginUser };

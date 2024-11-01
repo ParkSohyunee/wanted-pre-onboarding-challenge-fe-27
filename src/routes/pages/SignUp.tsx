@@ -7,6 +7,7 @@ import useForm from "../../hooks/useForm";
 
 import Label from "../../components/Label";
 import TextInput from "../../components/TextInput";
+import CustomButton from "../../components/CustomButton";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ export default function SignUp() {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (!values.email || !values.password) {
+    if (!!errors.email || !!errors.password) {
       return;
     }
 
@@ -59,7 +60,12 @@ export default function SignUp() {
             {...getValuesProps("password")}
           />
         </div>
-        <button type="submit">회원가입</button>
+        <CustomButton
+          type="submit"
+          isError={!!errors.email || !!errors.password}
+        >
+          회원가입
+        </CustomButton>
       </form>
     </section>
   );

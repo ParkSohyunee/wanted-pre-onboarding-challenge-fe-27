@@ -7,6 +7,7 @@ import useForm from "../../hooks/useForm";
 
 import Label from "../../components/Label";
 import TextInput from "../../components/TextInput";
+import CustomButton from "../../components/CustomButton";
 
 export default function Login() {
   const { values, errors, isBlur, getValuesProps } = useForm({
@@ -17,7 +18,7 @@ export default function Login() {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (!values.email || !values.password) {
+    if (!!errors.email || !!errors.password) {
       return;
     }
 
@@ -59,7 +60,12 @@ export default function Login() {
             {...getValuesProps("password")}
           />
         </div>
-        <button type="submit">로그인</button>
+        <CustomButton
+          type="submit"
+          isError={!!errors.email || !!errors.password}
+        >
+          로그인
+        </CustomButton>
       </form>
     </section>
   );

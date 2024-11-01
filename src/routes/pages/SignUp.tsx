@@ -1,40 +1,16 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { validateForm } from "../../libs/utils/validate";
 import { createUser } from "../../api/auth";
+import useForm from "../../hooks/useForm";
 
 export default function SignUp() {
   const navigate = useNavigate();
-
-  const [values, setValues] = useState({
-    email: "",
-    password: "",
+  const { values, isBlur, errors, getValuesProps } = useForm({
+    initialValue: { email: "", password: "" },
+    validate: validateForm,
   });
-
-  const [errors, setErrors] = useState({
-    email: "",
-    password: "",
-  });
-
-  const [isBlur, setIsBlur] = useState({
-    email: false,
-    password: false,
-  });
-
-  const handleChangeValues = (e: ChangeEvent<HTMLInputElement>) => {
-    const error = validateForm(values);
-    setErrors(error);
-
-    setIsBlur((prev) => ({
-      ...prev,
-      [e.target.id]: true,
-    }));
-    setValues((prev) => ({
-      ...prev,
-      [e.target.id]: e.target.value,
-    }));
-  };
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -53,23 +29,22 @@ export default function SignUp() {
     }
   };
 
-  useEffect(() => {
-    const error = validateForm(values);
-    setErrors(error);
-  }, [values]);
-
   return (
     <section>
       <h1>회원가입 페이지</h1>
       <form onSubmit={onSubmit}>
         <div>
           <label htmlFor="email">이메일</label>
-          <input id="email" onBlur={handleChangeValues} />
+          <input id="email" {...getValuesProps("email")} />
           <p>{isBlur.email && !!errors.email && errors.email}</p>
         </div>
         <div>
           <label htmlFor="password">비밀번호</label>
-          <input id="password" type="password" onBlur={handleChangeValues} />
+          <input
+            id="password"
+            type="password"
+            {...getValuesProps("password")}
+          />
           <p>{isBlur.password && !!errors.password && errors.password}</p>
         </div>
         <button type="submit">회원가입</button>

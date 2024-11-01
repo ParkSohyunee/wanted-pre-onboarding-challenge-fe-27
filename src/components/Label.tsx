@@ -5,6 +5,6 @@ type LabelProps = {
   htmlFor: LabelHTMLAttributes<HTMLLabelElement>["htmlFor"];
 };
 
-export default function Label({ children, ...props }: LabelProps) {
-  return <label {...props}>{children}</label>;
+export default function Label({ children, htmlFor }: LabelProps) {
+  return <label htmlFor={htmlFor}>{children}</label>;
 }

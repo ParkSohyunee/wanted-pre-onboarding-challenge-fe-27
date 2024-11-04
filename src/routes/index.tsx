@@ -4,7 +4,9 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import DefaultLayout from "./layout/DefaultLayout";
+
 import { TodoListContextProvider } from "../context/TodoListContext";
+import { SelectedTodoContextProvider } from "../context/SelectedTodoContext";
 
 const router = createBrowserRouter([
   {
@@ -14,7 +16,9 @@ const router = createBrowserRouter([
         path: "/",
         element: (
           <TodoListContextProvider>
-            <Home />
+            <SelectedTodoContextProvider>
+              <Home />
+            </SelectedTodoContextProvider>
           </TodoListContextProvider>
         ),
       },

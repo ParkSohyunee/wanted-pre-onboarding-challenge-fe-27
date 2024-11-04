@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import DefaultLayout from "./layout/DefaultLayout";
+import { TodoListContextProvider } from "../context/TodoListContext";
 
 const router = createBrowserRouter([
   {
@@ -11,7 +12,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: (
+          <TodoListContextProvider>
+            <Home />
+          </TodoListContextProvider>
+        ),
       },
       {
         path: "/auth/login",

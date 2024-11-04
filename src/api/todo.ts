@@ -6,12 +6,13 @@ type TodoType = {
   content: string;
 };
 
-type Response = {
-  data: Todo;
+const getTodos = async () => {
+  const result = await axiosInstance.get<{ data: Todo[] }>("/todos");
+  return result.data;
 };
 
 const createTodo = async ({ title, content }: TodoType) => {
-  const result = await axiosInstance.post<Response>("/todos", {
+  const result = await axiosInstance.post<{ data: Todo }>("/todos", {
     title,
     content,
   });
@@ -19,4 +20,4 @@ const createTodo = async ({ title, content }: TodoType) => {
   return result.data;
 };
 
-export { createTodo };
+export { getTodos, createTodo };

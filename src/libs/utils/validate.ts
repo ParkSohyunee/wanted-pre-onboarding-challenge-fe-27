@@ -27,4 +27,26 @@ const validateForm = ({ email, password }: FormType) => {
   return errors;
 };
 
-export { validateForm };
+type TodoType = {
+  title: string;
+  content: string;
+};
+
+const validateTodo = ({ title, content }: TodoType) => {
+  const errors = {
+    title: "",
+    content: "",
+  };
+
+  if (!title) {
+    errors.title = "제목을 입력해주세요.";
+  }
+
+  if (!content) {
+    errors.content = "내용을 입력해주세요";
+  }
+
+  return errors;
+};
+
+export { validateForm, validateTodo };

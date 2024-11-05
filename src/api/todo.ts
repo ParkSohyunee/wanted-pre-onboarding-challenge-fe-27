@@ -26,4 +26,13 @@ const createTodo = async ({ title, content }: Omit<TodoType, "id">) => {
   return result.data;
 };
 
-export { getTodos, getTodoById, createTodo };
+const updateTodo = async ({ id, title, content }: TodoType) => {
+  const result = await axiosInstance.put<{ data: Todo }>(`/todos/${id}`, {
+    title,
+    content,
+  });
+
+  return result.data;
+};
+
+export { getTodos, getTodoById, createTodo, updateTodo };

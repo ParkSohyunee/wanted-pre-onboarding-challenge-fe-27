@@ -5,6 +5,29 @@ import { SelectedTodoContext } from "../context/SelectedTodoContext";
 import { getTodoById } from "../api/todo";
 import { Todo } from "../types/todo";
 
+import CustomButton from "./CustomButton";
+import Label from "./Label";
+import TextInput from "./TextInput";
+
+type ContentsViewProps = {
+  todoData: Todo;
+};
+
+function ContentsView({ todoData }: ContentsViewProps) {
+  return (
+    <div>
+      <div>
+        <Label htmlFor="title">제목</Label>
+        <TextInput readOnly value={todoData.title} />
+      </div>
+      <div>
+        <Label htmlFor="content">내용</Label>
+        <TextInput readOnly value={todoData.content} />
+      </div>
+    </div>
+  );
+}
+
 export default function TodoContents() {
   const { selectedItems } = useContext(SelectedTodoContext);
   const [todoDetail, setTodoDetail] = useState<Todo>();
@@ -27,11 +50,14 @@ export default function TodoContents() {
     fetchTodoDetail();
   }, [fetchTodoDetail]);
 
+  if (!todoDetail) {
+    return;
+  }
+
   return (
     <div>
-      <h2>{todoDetail?.title}</h2>
-      <p>{todoDetail?.content}</p>
-      <p>{todoDetail?.createdAt}</p>
+      <ContentsView todoData={todoDetail} />
+      <CustomButton isError={false}>수정하기</CustomButton>
     </div>
   );
 }

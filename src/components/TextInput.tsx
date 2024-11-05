@@ -1,8 +1,8 @@
 import { InputHTMLAttributes } from "react";
 
 interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
-  isBlur: boolean;
-  errorMessage: string;
+  isBlur?: boolean;
+  errorMessage?: string;
 }
 
 export default function TextInput({

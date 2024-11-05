@@ -5,30 +5,26 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import DefaultLayout from "./layout/DefaultLayout";
 
-import { TodoListContextProvider } from "../context/TodoListContext";
-import { SelectedTodoContextProvider } from "../context/SelectedTodoContext";
-
 const router = createBrowserRouter([
   {
     element: <DefaultLayout />,
     children: [
       {
         path: "/",
-        element: (
-          <TodoListContextProvider>
-            <SelectedTodoContextProvider>
-              <Home />
-            </SelectedTodoContextProvider>
-          </TodoListContextProvider>
-        ),
+        element: <Home />,
       },
       {
-        path: "/auth/login",
-        element: <Login />,
-      },
-      {
-        path: "/auth/signup",
-        element: <SignUp />,
+        path: "/auth",
+        children: [
+          {
+            path: "login",
+            element: <Login />,
+          },
+          {
+            path: "signup",
+            element: <SignUp />,
+          },
+        ],
       },
     ],
   },

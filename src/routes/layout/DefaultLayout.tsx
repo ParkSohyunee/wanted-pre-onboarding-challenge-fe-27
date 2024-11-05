@@ -6,6 +6,7 @@ export default function DefaultLayout() {
     <section>
       <Header />
       <Outlet />
+      <div id="portal"></div>
     </section>
   );
 }
